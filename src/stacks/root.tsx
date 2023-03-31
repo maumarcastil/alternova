@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Home from './home';
 import { ThemeProvider } from '../context/theme';
 import Auth from './auth';
+import { NativeBaseProvider } from 'native-base';
 
 const RootStack = () => {
     const [user, setUser] = React.useState(null);
@@ -29,9 +30,11 @@ const RootStack = () => {
 
 export default () => {
     return (
-        <ThemeProvider>
-            <RootStack />
-        </ThemeProvider>
+        <NativeBaseProvider>
+            <ThemeProvider>
+                <RootStack />
+            </ThemeProvider>
+        </NativeBaseProvider>
     )
 };
 

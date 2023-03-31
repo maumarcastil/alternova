@@ -3,11 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack/lib/typescript/src/types';
 
-import HomePage from '../pages/home/home';
+
+import SignInPage from '../pages/auth/signin';
+import SignUpPage from '../pages/auth/signup';
 
 const Stack = createNativeStackNavigator();
 
-const Home = () => {
+const Auth = () => {
     const screenOptions: NativeStackNavigationOptions = {
         headerShown: false,
     };
@@ -15,10 +17,11 @@ const Home = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={screenOptions}>
-                <Stack.Screen name="Home" component={HomePage} />
+                <Stack.Screen name="signIn" component={SignInPage} />
+                <Stack.Screen name="signUp" component={SignUpPage} />
             </Stack.Navigator>
         </NavigationContainer>
     );
 }
 
-export default Home;
+export default Auth;

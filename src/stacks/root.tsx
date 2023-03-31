@@ -1,31 +1,42 @@
 import * as React from 'react';
-import { Appearance } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Home from './home';
+import { ThemeProvider } from '../context/theme';
+import Auth from './auth';
 
 const RootStack = () => {
-
     const [user, setUser] = React.useState(null);
 
-    const colorScheme = Appearance.getColorScheme();
-    console.log("🚀 ~ file: root.tsx:8 ~ RootStack ~ colorScheme:", colorScheme)
-
-
-    /* if (!user) (
+    if (!user) {
         return (
-        <>
-
-        </>
-    ) */
+            <>
+                <SafeAreaView style={styles.container}>
+                    <Auth />
+                </SafeAreaView>
+            </>
+        )
+    }
 
     return (
-        <Home />
+        <SafeAreaView style={[styles.container]}>
+            <Home />
+        </SafeAreaView>
     )
 }
 
 
 export default () => {
     return (
-        <RootStack />
+        <ThemeProvider>
+            <RootStack />
+        </ThemeProvider>
     )
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    }
+});

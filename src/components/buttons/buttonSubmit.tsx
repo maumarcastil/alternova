@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Button } from 'native-base'
-import { StyleSheet, Text, View } from 'react-native'
 
 import { ThemeContext } from '../../context/theme';
-import { theme } from '../../config/theme';
 
 interface ButtonEntryProps extends React.ComponentProps<typeof Button> {
     label?: string;
@@ -18,7 +16,11 @@ const ButtonEntry = ({
     return (
         <>
             <Button
-                backgroundColor={themeColors.primary}
+                bg={themeColors.greenPrimary}
+                _pressed={{
+                    opacity: 0.9,
+                    bg: themeColors.greenSecondary
+                }}
                 {...props}
             >
                 {label}

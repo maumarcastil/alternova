@@ -6,15 +6,16 @@ const theme = {
         border: '#EAEAEA',
         primary: '#0DA54B',
 
+        greenPrimary: '#0DA54B',
+        greenSecondary: '#097334',
+
+
         /*  */
         background: '#fff',
         background2: '#FFFFFF',
         firstText: '#000000',
         secondText: '#0E1621',
-        
-
-        
-        secondary: '#999EA1',
+        secondary: '#097334',
         tertiary: '#fff',
     },
     dark: {
@@ -23,6 +24,10 @@ const theme = {
         text2: '#999EA1',
         border: '#EAEAEA',
         primary: '#0DA54B',
+
+        greenPrimary: '#0DA54B',
+        greenSecondary: '#097334',
+
 
         /*  */
         background: '#12151B',

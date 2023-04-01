@@ -1,8 +1,10 @@
 export enum pagesNames {
     SIGNIN = 'signin',
     SIGNUP = 'signup',
-    HOME = 'home',
+
+    SHOP = 'shop',
+    ITEM_DETAILS = 'itemDetails',
+    CART = 'cart',
+    CHECKOUT = 'checkout',
     PROFILE = 'profile',
-    SETTINGS = 'settings',
-    NOTIFICATIONS = 'notifications',
 }

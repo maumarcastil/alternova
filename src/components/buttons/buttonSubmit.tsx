@@ -13,25 +13,16 @@ const ButtonEntry = ({
     label,
     ...props
 }: ButtonEntryProps) => {
-
     const { themeColors } = React.useContext(ThemeContext);
-
-    const styles = StyleSheet.create({
-        container: {
-            marginVertical: 10,
-        },
-    })
 
     return (
         <>
-
-                <Button
-                    onPress={() => console.log("hello world")}
-                    backgroundColor={themeColors.primary}
-                    {...props}
-                >
-                    {label}
-                </Button >
+            <Button
+                backgroundColor={themeColors.primary}
+                {...props}
+            >
+                {label}
+            </Button >
         </>
     );
 }

@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native'
+import { NativeBaseProvider } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Home from './home';
-import { ThemeProvider } from '../context/theme';
 import Auth from './auth';
-import { NativeBaseProvider } from 'native-base';
+import { ThemeProvider } from '../context/theme';
+import useAuthentication from '../hooks/useAuthentication';
 
 const RootStack = () => {
-    const [user, setUser] = React.useState(null);
+    const { user } = useAuthentication();
 
     if (!user) {
         return (
@@ -19,14 +20,12 @@ const RootStack = () => {
             </>
         )
     }
-
     return (
         <SafeAreaView style={[styles.container]}>
             <Home />
         </SafeAreaView>
     )
 }
-
 
 export default () => {
     return (

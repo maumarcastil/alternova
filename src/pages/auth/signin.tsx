@@ -71,19 +71,19 @@ const SignInPage = () => {
             marginBottom: 38
         },
         title: {
-            color: themeColors.text,
+            color: themeColors.textPrimary,
             fontWeight: '600',
             fontSize: 25,
             lineHeight: 34,
         },
         text: {
-            color: themeColors.text2,
+            color: themeColors.grayPrimary,
             fontWeight: '600',
             fontSize: 14,
             lineHeight: 19,
         },
         redirect: {
-            color: themeColors.primary,
+            color: themeColors.greenPrimary,
             fontWeight: '600',
             fontSize: 14,
             lineHeight: 19,

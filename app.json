@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "647ee8a5-7589-44aa-90ce-508a79fd4685"
+      }
+    },
+    "owner": "maumarcastil"
   }
 }

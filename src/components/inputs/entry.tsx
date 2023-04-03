@@ -24,7 +24,7 @@ const Entry = ({ label, showLabel = true, ...props }: EntryProps) => {
             padding: 8,
         },
         label: {
-            color: themeColors.text,
+            color: themeColors.textPrimary,
             fontStyle: 'normal',
             fontWeight: '600',
             lineHeight: 19,
@@ -40,9 +40,9 @@ const Entry = ({ label, showLabel = true, ...props }: EntryProps) => {
                 <Input
                     type={"text"}
                     borderRadius={10}
-                    borderColor={themeColors.border}
-                    color={themeColors.text2} 
-                    placeholderTextColor={themeColors.text2}
+                    borderColor={themeColors.borderInput}
+                    color={themeColors.textGraySecondary} 
+                    placeholderTextColor={themeColors.textGraySecondary}
                     {...props}
                 />
             </View>

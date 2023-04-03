@@ -1,18 +1,47 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
 import { useNavigation } from '@react-navigation/native';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Product } from '../../types/shop';
+import { pagesNames } from '../../types/pages';
 import IconBag from '../../assets/icons/bag.svg';
 import { ThemeContext } from '../../context/theme';
+import { addItemTocart } from '../../redux/slices/cart';
 import { HomeScreenNavigationProp } from '../../types/navigation';
-import { pagesNames } from '../../types/pages';
+
 
 const ItemShop = ({ item }: {
     item: Product;
 }) => {
-    const navigation = useNavigation<HomeScreenNavigationProp>();
     const { themeColors } = React.useContext(ThemeContext);
+    const navigation = useNavigation<HomeScreenNavigationProp>();
+    const dispatch = useDispatch()
+
+    const handlePressBag = () => {
+        if (item.stock > 0) {
+            dispatch(addItemTocart({
+                ...item,
+                quantity: 1,
+                checkForBuy: false
+            }))
+
+            Toast.show({
+                type: 'success',
+                text1: 'Item added to cart',
+                text2: 'Go to cart to complete your order',
+                position: 'bottom',
+            })
+        } else {
+            Toast.show({
+                type: 'error',
+                text1: 'Item out of stock',
+                text2: 'Please try again later',
+                position: 'bottom',
+            })
+        }
+    };
 
     const styles = StyleSheet.create({
         container: {
@@ -23,8 +52,7 @@ const ItemShop = ({ item }: {
 
             // my visual styles; not important for grid
             borderRadius: 10,
-            borderColor: "#F2F2F2",
-            backgroundColor: "#fff",
+            backgroundColor: themeColors.backgroundCard,
 
             shadowColor: "#000",
             shadowOffset: {
@@ -34,13 +62,12 @@ const ItemShop = ({ item }: {
             shadowOpacity: 0.18,
             shadowRadius: 4.59,
             elevation: 5
-
         },
         containerImage: {
             height: 180,
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
-
+            backgroundColor: themeColors.backgroundImage,
         },
         containerText: {
             borderRadius: 10,
@@ -65,14 +92,14 @@ const ItemShop = ({ item }: {
             fontWeight: '700',
             fontSize: 12,
             lineHeight: 15,
-            color: themeColors.text,
+            color: themeColors.textPrimary,
         },
         textTitleItem: {
             fontStyle: 'normal',
             fontWeight: '400',
             fontSize: 12,
             lineHeight: 15,
-            color: '#505050',
+            color: themeColors.textSecondary,
             marginBottom: 13
         },
         images: {
@@ -94,10 +121,10 @@ const ItemShop = ({ item }: {
                     />
                 </View>
                 <View style={styles.containerText}>
-                    <Text style={styles.textTitleItem}>Cotton shirt Regular Fit</Text>
+                    <Text style={styles.textTitleItem}>{item.name}</Text>
                     <View style={styles.containerPrice}>
                         <Text style={styles.textPrice} >$ {item.unit_price}</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={handlePressBag} >
                             <View style={styles.containerIconBag} >
                                 <IconBag />
                             </View>

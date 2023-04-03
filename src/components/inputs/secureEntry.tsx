@@ -25,7 +25,7 @@ const SecureEntry = ({ label, showLabel = true, ...props }: SecureEntryProps) =>
             padding: 8,
         },
         label: {
-            color: themeColors.text,
+            color: themeColors.textPrimary,
             fontStyle: 'normal',
             fontWeight: '600',
             lineHeight: 19,
@@ -48,9 +48,9 @@ const SecureEntry = ({ label, showLabel = true, ...props }: SecureEntryProps) =>
                         </Pressable>
                     }
                     borderRadius={10}
-                    borderColor={themeColors.border}
-                    color={themeColors.text2}
-                    placeholderTextColor={themeColors.text2}
+                    borderColor={themeColors.borderInput}
+                    color={themeColors.textGraySecondary}
+                    placeholderTextColor={themeColors.textGraySecondary}
                     {...props}
 
                 />

@@ -16,7 +16,7 @@ const Quantity = ({ quantity, setQuantity }: QuantityProps) => {
 
     const styles = StyleSheet.create({
         container: {
-            backgroundColor: themeColors.border,
+            backgroundColor: themeColors.backgroundQuantity,
             borderRadius: 10,
             width: '100%',
             maxWidth: 122
@@ -33,6 +33,7 @@ const Quantity = ({ quantity, setQuantity }: QuantityProps) => {
             fontWeight: '500',
             fontSize: 16,
             lineHeight: 19,
+            color: themeColors.greenPrimary,
         }
     });
     return (
@@ -45,7 +46,7 @@ const Quantity = ({ quantity, setQuantity }: QuantityProps) => {
                         bg={'#fff'}
                         borderWidth={1}
                         borderRadius={10}
-                        borderColor={'#CACACA'}
+                        borderColor={themeColors.grayPrimary}
                         _text={{
                             color: '#000',
                             ...styles.text
@@ -66,7 +67,7 @@ const Quantity = ({ quantity, setQuantity }: QuantityProps) => {
                         bg={'#fff'}
                         borderRadius={10}
                         borderWidth={1}
-                        borderColor={'#CACACA'}
+                        borderColor={themeColors.grayPrimary}
                         color={'#000'}
                         _text={{
                             color: '#000',

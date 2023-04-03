@@ -1,17 +1,48 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { Product } from '../../types/shop';
+import IconStar from '../../assets/icons/star.svg'
 import { ThemeContext } from '../../context/theme';
 import Quantity from '../../components/quantity/quantity';
-import ButtonEntry from '../../components/buttons/buttonSubmit';
 import IconBackArrow from '../../assets/icons/backArrow.svg'
-import IconStar from '../../assets/icons/star.svg'
+import ButtonEntry from '../../components/buttons/buttonSubmit';
+
+import { addItemTocart } from '../../redux/slices/cart';
+import { fetchProductsById } from '../../redux/slices/products';
+import { useAppSelector } from '../../hooks/useTypedSelector';
 
 const ItemDetails = ({ navigation, route }: any) => {
+    const { product: productRoute }: { product: Product } = route.params;
     const { themeColors } = React.useContext(ThemeContext);
-    const { product }: { product: Product } = route.params;
+
     const [quantity, setQuantity] = React.useState(1);
+    const [product, setProduct] = React.useState<Product>(productRoute);
+
+    const dispatch = useDispatch<any>();
+    const { selectedProduct } = useAppSelector((state) => state.products);
+
+    React.useEffect(() => {
+        dispatch(fetchProductsById(productRoute.id))
+    }, []);
+
+    React.useEffect(() => {
+        if (selectedProduct?.id === productRoute.id) {
+            setProduct(selectedProduct);
+        }
+    }, [selectedProduct]);
+
+    const handleAddToCart = () => {
+        dispatch(addItemTocart({ ...product, quantity, checkForBuy: false }));
+        Toast.show({
+            type: 'success',
+            text1: 'Item added to cart',
+            text2: 'Go to cart to complete your order',
+        })
+    };
+
 
     const styles = StyleSheet.create({
         container: {
@@ -22,7 +53,7 @@ const ItemDetails = ({ navigation, route }: any) => {
             height: '100%',
             maxHeight: 436,
             marginBottom: 29,
-            backgroundColor: '#F0F0F0',
+            backgroundColor: themeColors.backgroundImage,
             borderBottomLeftRadius: 20,
             borderBottomRightRadius: 20,
         },
@@ -42,10 +73,11 @@ const ItemDetails = ({ navigation, route }: any) => {
             zIndex: 1,
         },
         containerAddToCart: {
+            borderWidth: 1,
+            marginBottom: -1,
+            borderColor: themeColors.grayPrimary,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
-            borderWidth: 1,
-            borderColor: '#CACACA',
         },
         image: {
             height: '100%'
@@ -55,7 +87,7 @@ const ItemDetails = ({ navigation, route }: any) => {
             fontWeight: '500',
             fontSize: 18,
             lineHeight: 19,
-            color: themeColors.text,
+            color: themeColors.textPrimary,
 
             marginBottom: 10
         },
@@ -73,7 +105,7 @@ const ItemDetails = ({ navigation, route }: any) => {
             fontWeight: '700',
             fontSize: 40,
             lineHeight: 19,
-            color: '#000000aa',
+            color: themeColors.textGraySecondary,
             textAlignVertical: 'bottom',
             height: 40,
         },
@@ -83,7 +115,7 @@ const ItemDetails = ({ navigation, route }: any) => {
             lineHeight: 19,
             textAlign: 'justify',
 
-            color: themeColors.text2,
+            color: themeColors.textGrayPrimary,
         },
         textNotStock: {
             fontStyle: 'normal',
@@ -92,7 +124,7 @@ const ItemDetails = ({ navigation, route }: any) => {
             lineHeight: 19,
             textAlign: 'justify',
 
-            color: '#D82F2F'
+            color: themeColors.textRedPrimary,
         },
 
         /* points */
@@ -109,7 +141,7 @@ const ItemDetails = ({ navigation, route }: any) => {
             fontSize: 12,
             lineHeight: 19,
 
-            color: themeColors.text2,
+            color: themeColors.textGrayPrimary,
         },
         numberPoints: {
             fontStyle: 'normal',
@@ -118,7 +150,7 @@ const ItemDetails = ({ navigation, route }: any) => {
             lineHeight: 19,
             marginRight: 7,
 
-            color: '#000000aa',
+            color: themeColors.textGraySecondary,
         },
         textCount: {
             fontStyle: 'normal',
@@ -126,7 +158,7 @@ const ItemDetails = ({ navigation, route }: any) => {
             lineHeight: 19,
             marginRight: 7,
 
-            color: themeColors.text2,
+            color: themeColors.textGrayPrimary,
         },
         textPoints: {
             fontStyle: 'normal',
@@ -134,9 +166,10 @@ const ItemDetails = ({ navigation, route }: any) => {
             fontSize: 12,
             lineHeight: 19,
 
-            color: '#000000aa',
+            color: themeColors.textGraySecondary,
         }
     });
+
     return (
         <>
             <View style={styles.container} >
@@ -177,10 +210,7 @@ const ItemDetails = ({ navigation, route }: any) => {
                         <Text style={styles.titleDescription}>Description</Text>
                         <View style={styles.containerPrice}>
                             <Text style={styles.textDescription}>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, provident hic quos earum iste animi sapiente sit sed odio distinctio sint placeat aliquid, vel, minus ut quibusdam excepturi! Laboriosam, aliquid!
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae perferendis illum maiores eius eligendi magni culpa, quam in impedit inventore beatae, quas, dolores alias labore harum at necessitatibus! Iure, facilis?
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis aliquid vero eum inventore doloremque odit dicta animi eveniet explicabo aspernatur, ratione, ad numquam voluptas corrupti, deleniti recusandae tempore eos laborum.
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, illo atque. Hic illo nemo voluptates placeat, quaerat quisquam amet consectetur qui laborum maxime autem, quod adipisci optio deleniti aliquid! Dolorem.
+                                {product?.description}
                             </Text>
                         </View>
                     </View>
@@ -206,6 +236,7 @@ const ItemDetails = ({ navigation, route }: any) => {
                                         _text={{
                                             fontWeight: '700',
                                         }}
+                                        onPress={handleAddToCart}
                                     />
                                 </>
                             )

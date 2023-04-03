@@ -13,12 +13,14 @@ import { Provider } from 'react-redux';
 import Toast from 'react-native-toast-message';
 import { persistor, store } from '../redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { useAppSelector } from '../hooks/useTypedSelector';
 
 
 const RootStack = () => {
     const { user } = useAuthentication();
+    const { user: localUser } = useAppSelector(state => state.user);
 
-    if (!user) {
+    if (!localUser) {
         return (
             <SafeAreaView style={styles.container}>
 

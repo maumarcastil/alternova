@@ -6,8 +6,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { cartSlice } from "./slices/cart";
 import { productsSlice } from "./slices/products";
 import thunk from 'redux-thunk';
+import { userSlice } from './slices/user';
 
 const reducers = combineReducers({
+    user: userSlice.reducer,
     cart: cartSlice.reducer,
     products: productsSlice.reducer,
 });
@@ -15,6 +17,7 @@ const reducers = combineReducers({
 const persistConfig = {
     key: "root",
     storage: AsyncStorage,
+    whitelist: ["cart", "user"],
 }
 
 const persistedReducer = persistReducer<RootState>(persistConfig, reducers)

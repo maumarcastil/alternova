@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-
-import Root from '@/stacks/root';
+import Root from './src/stacks/root';
 
 export default function App() {
   return (
-    <Root />
+    <>
+      <Root />
+    </>
   );
 }
 
